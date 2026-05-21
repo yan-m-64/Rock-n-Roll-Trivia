@@ -1,0 +1,112 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rock-n-Roll Trivia</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Metal+Mania&family=Permanent+Marker&family=Oswald:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ░░░ START SCREEN ░░░ -->
+  <div id="screen-start" class="screen active">
+    <div class="skull-border top"></div>
+    <div class="start-content">
+      <div class="logo-wrap">
+        <span class="logo-icon">💀</span>
+        <h1 class="logo-title">Rock<span class="amp">&amp;</span>Roll<br/>Trivia</h1>
+        <span class="logo-icon">💀</span>
+      </div>
+      <p class="tagline">How well do you know the legends of rock &amp; metal?</p>
+      <div class="band-tags">
+        <span>Sum 41</span><span>Linkin Park</span><span>Breaking Benjamin</span>
+        <span>Escape the Fate</span><span>Falling in Reverse</span>
+        <span>Set It Off</span><span>Fall Out Boy</span><span>Pierce the Veil</span>
+      </div>
+      <button id="btn-start" class="btn-primary">&#9658; Start Game</button>
+    </div>
+    <div class="skull-border bottom"></div>
+  </div>
+
+  <!-- ░░░ GAME SCREEN ░░░ -->
+  <div id="screen-game" class="screen">
+    <header class="game-header">
+      <div class="progress-wrap">
+        <span id="q-counter">Question 1 of 20</span>
+        <div class="progress-bar"><div id="progress-fill"></div></div>
+      </div>
+      <div class="score-wrap">
+        <span class="score-label">Score</span>
+        <span id="score-display">0</span>
+      </div>
+    </header>
+
+    <div id="timer-bar-wrap"><div id="timer-bar"></div></div>
+
+    <main class="question-area">
+      <div class="band-badge" id="band-badge">Linkin Park</div>
+      <div class="question-card">
+        <p id="question-text">Question goes here</p>
+      </div>
+      <div class="answers-grid" id="answers-grid">
+        <button class="answer-btn" data-idx="0"></button>
+        <button class="answer-btn" data-idx="1"></button>
+        <button class="answer-btn" data-idx="2"></button>
+        <button class="answer-btn" data-idx="3"></button>
+      </div>
+    </main>
+  </div>
+
+  <!-- ░░░ FEEDBACK OVERLAY ░░░ -->
+  <div id="overlay-feedback" class="overlay hidden">
+    <div class="feedback-box">
+      <div id="skeleton-wrap" class="skeleton-wrap hidden">
+        <div class="skeleton">
+          <div class="sk-head"></div>
+          <div class="sk-body">
+            <div class="sk-arm left"></div>
+            <div class="sk-torso"></div>
+            <div class="sk-arm right"></div>
+          </div>
+          <div class="sk-hips"></div>
+          <div class="sk-legs">
+            <div class="sk-leg left"></div>
+            <div class="sk-leg right"></div>
+          </div>
+        </div>
+      </div>
+      <div id="feedback-icon"></div>
+      <p id="feedback-msg"></p>
+      <p id="feedback-detail" class="feedback-detail"></p>
+    </div>
+  </div>
+
+  <!-- ░░░ END SCREEN ░░░ -->
+  <div id="screen-end" class="screen">
+    <div class="skull-border top"></div>
+    <div class="end-content">
+      <h2 class="end-title">Game Over</h2>
+      <div class="final-skull">💀</div>
+      <p class="final-score-label">Your Score</p>
+      <div class="final-score-display">
+        <span id="final-score">0</span>
+        <span class="final-of"> / 20</span>
+      </div>
+      <p id="final-verdict" class="final-verdict"></p>
+      <div class="end-actions">
+        <button id="btn-replay" class="btn-primary">&#9654; Play Again</button>
+      </div>
+    </div>
+    <div class="skull-border bottom"></div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
+```
+
+This is the `index.html`. You'll also need `style.css` and `app.js` to complete the app. Want me to generate those next?

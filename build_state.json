@@ -1,0 +1,26 @@
+{
+  "app_name": "Rock-n-Roll-Trivia",
+  "description": "Trivia app for rock n roll and metal music, reference bands for genre, sum41, Linkin Park, breaking Benjamin, escape the fate, failing in reverse, set it off, fall out boy, pierce the veil.\n\nTrivia is about the band history, lyrics, etc.\n\nEvery time you get the answer correct you get a little skeleton dancing",
+  "complexity": "standard",
+  "updates": "minimal",
+  "publish_preference": null,
+  "status": "complete",
+  "completed_stages": [
+    "plan",
+    "html",
+    "css",
+    "js",
+    "readme"
+  ],
+  "current_stage": null,
+  "files_created": [
+    "plan.md",
+    "index.html",
+    "style.css",
+    "app.js",
+    "README.md"
+  ],
+  "last_error": null,
+  "created_at": "2026-05-21T18:52:40Z",
+  "updated_at": "2026-05-21T19:05:32Z"
+}

@@ -1,0 +1,667 @@
+It looks like file write permissions aren't enabled for this directory. Here's the complete `style.css` — you can paste it directly into your file:
+
+```css
+/* ============================================================
+   Rock-n-Roll Trivia — style.css
+   ============================================================ */
+
+/* ── Reset & Base ───────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg:           #0d0d0d;
+  --bg-card:      #141414;
+  --bg-card2:     #1a1a1a;
+  --red:          #e8001a;
+  --red-dark:     #a0001a;
+  --red-glow:     rgba(232, 0, 26, 0.42);
+  --bone:         #f0e6d0;
+  --bone-dim:     #a89880;
+  --white:        #ffffff;
+  --correct:      #22c55e;
+  --correct-glow: rgba(34, 197, 94, 0.38);
+  --wrong:        #ef4444;
+  --wrong-glow:   rgba(239, 68, 68, 0.38);
+  --border:       rgba(240, 230, 208, 0.1);
+  --font-metal:   'Metal Mania', cursive;
+  --font-marker:  'Permanent Marker', cursive;
+  --font-body:    'Oswald', sans-serif;
+}
+
+html, body { height: 100%; }
+
+body {
+  background-color: var(--bg);
+  background-image:
+    radial-gradient(ellipse at 18% 8%,  rgba(232,0,26,0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 82% 92%, rgba(232,0,26,0.06) 0%, transparent 50%);
+  color: var(--bone);
+  font-family: var(--font-body);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow-x: hidden;
+}
+
+/* ── Screen Management ──────────────────────────────────────── */
+.screen {
+  display: none;
+  width: 100%;
+  max-width: 680px;
+  min-height: 100vh;
+  padding: 24px 20px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.screen.active { display: flex; }
+
+/* ── Skull Border ───────────────────────────────────────────── */
+.skull-border {
+  width: 100%;
+  text-align: center;
+  font-size: 1.1rem;
+  letter-spacing: 4px;
+  color: var(--red);
+  opacity: 0.55;
+  position: absolute;
+  left: 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.skull-border.top    { top: 14px; }
+.skull-border.bottom { bottom: 14px; }
+.skull-border::before {
+  content: '💀 ☠ 💀 ☠ 💀 ☠ 💀 ☠ 💀 ☠ 💀 ☠ 💀 ☠ 💀';
+}
+
+/* ── Primary Button ─────────────────────────────────────────── */
+.btn-primary {
+  display: inline-block;
+  padding: 14px 48px;
+  background: var(--red);
+  color: var(--white);
+  font-family: var(--font-metal);
+  font-size: 1.25rem;
+  letter-spacing: 2px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-transform: uppercase;
+  box-shadow: 0 0 22px var(--red-glow), 0 4px 14px rgba(0,0,0,0.65);
+  transition: background 0.18s, box-shadow 0.18s, transform 0.1s;
+  position: relative;
+  overflow: hidden;
+}
+.btn-primary::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.14) 0%, transparent 55%);
+  pointer-events: none;
+}
+.btn-primary:hover {
+  background: #ff1a2e;
+  box-shadow: 0 0 36px var(--red-glow), 0 6px 20px rgba(0,0,0,0.7);
+  transform: translateY(-2px);
+}
+.btn-primary:active {
+  transform: translateY(0);
+  box-shadow: 0 0 16px var(--red-glow);
+}
+
+/* ──────────────────────────────────────────────────────────────
+   START SCREEN
+   ────────────────────────────────────────────────────────────── */
+.start-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  padding: 64px 0;
+  width: 100%;
+  text-align: center;
+}
+
+.logo-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.logo-icon {
+  font-size: 2.8rem;
+  filter: drop-shadow(0 0 12px var(--red));
+  animation: floatIcon 3s ease-in-out infinite;
+  user-select: none;
+}
+.logo-icon:last-child { animation-delay: -1.5s; }
+
+@keyframes floatIcon {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-9px); }
+}
+
+.logo-title {
+  font-family: var(--font-metal);
+  font-size: clamp(2.2rem, 8vw, 3.6rem);
+  line-height: 1.1;
+  color: var(--bone);
+  text-shadow:
+    0 0 18px var(--red),
+    0 0 44px rgba(232,0,26,0.38),
+    2px 3px 0 #000;
+  text-align: center;
+}
+.logo-title .amp { color: var(--red); }
+
+.tagline {
+  font-family: var(--font-marker);
+  font-size: 1.05rem;
+  color: var(--bone-dim);
+  max-width: 340px;
+  line-height: 1.55;
+}
+
+.band-tags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  max-width: 520px;
+}
+.band-tags span {
+  background: rgba(232,0,26,0.1);
+  border: 1px solid rgba(232,0,26,0.32);
+  color: var(--bone);
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 5px 12px;
+  border-radius: 2px;
+  transition: background 0.18s, border-color 0.18s;
+}
+.band-tags span:hover {
+  background: rgba(232,0,26,0.22);
+  border-color: var(--red);
+}
+
+/* ──────────────────────────────────────────────────────────────
+   GAME SCREEN
+   ────────────────────────────────────────────────────────────── */
+#screen-game {
+  justify-content: flex-start;
+  padding-top: 0;
+  padding-bottom: 32px;
+  gap: 0;
+}
+
+.game-header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 0 14px;
+  border-bottom: 1px solid var(--border);
+  gap: 20px;
+}
+
+.progress-wrap {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+#q-counter {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--bone-dim);
+}
+
+.progress-bar {
+  height: 6px;
+  background: rgba(255,255,255,0.07);
+  border-radius: 3px;
+  overflow: hidden;
+}
+#progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--red), #ff4d5e);
+  border-radius: 3px;
+  width: 5%;
+  transition: width 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 0 8px var(--red-glow);
+}
+
+.score-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 68px;
+}
+.score-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--bone-dim);
+}
+#score-display {
+  font-family: var(--font-metal);
+  font-size: 2.1rem;
+  color: var(--red);
+  line-height: 1;
+  text-shadow: 0 0 14px var(--red-glow);
+}
+
+/* Timer */
+#timer-bar-wrap {
+  width: 100%;
+  height: 4px;
+  background: rgba(255,255,255,0.05);
+}
+#timer-bar {
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(90deg, var(--red), #ff6200);
+  transition: width 0.3s linear;
+}
+
+/* Question Area */
+.question-area {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 18px;
+  margin-top: 22px;
+  flex: 1;
+}
+
+.band-badge {
+  background: var(--red);
+  color: var(--white);
+  font-family: var(--font-metal);
+  font-size: 0.85rem;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  padding: 5px 16px;
+  border-radius: 2px;
+  box-shadow: 0 0 14px var(--red-glow);
+}
+
+.question-card {
+  width: 100%;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-top: 3px solid var(--red);
+  border-radius: 4px;
+  padding: 26px 24px;
+  box-shadow: 0 4px 28px rgba(0,0,0,0.55), 0 0 0 1px rgba(232,0,26,0.05);
+}
+#question-text {
+  font-size: clamp(1rem, 2.8vw, 1.18rem);
+  font-weight: 600;
+  line-height: 1.6;
+  color: var(--bone);
+  text-align: center;
+}
+
+/* Answers Grid */
+.answers-grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.answer-btn {
+  background: var(--bg-card2);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--bone);
+  font-family: var(--font-body);
+  font-size: 0.93rem;
+  font-weight: 400;
+  line-height: 1.45;
+  padding: 14px 14px;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.15s, border-color 0.15s, transform 0.1s, box-shadow 0.15s, color 0.15s;
+  min-height: 70px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+.answer-btn::before {
+  content: attr(data-letter);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  min-width: 26px;
+  background: rgba(232,0,26,0.18);
+  border: 1px solid rgba(232,0,26,0.38);
+  border-radius: 50%;
+  font-weight: 700;
+  font-size: 0.72rem;
+  color: var(--red);
+  margin-right: 11px;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+.answer-btn:hover:not(:disabled) {
+  background: rgba(232,0,26,0.1);
+  border-color: rgba(232,0,26,0.48);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 18px rgba(232,0,26,0.18);
+}
+.answer-btn:active:not(:disabled) { transform: translateY(0); }
+.answer-btn:disabled { cursor: default; }
+
+.answer-btn.correct {
+  background: rgba(34,197,94,0.12);
+  border-color: var(--correct);
+  color: var(--correct);
+  box-shadow: 0 0 22px var(--correct-glow);
+  animation: correctPop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.answer-btn.correct::before {
+  background: rgba(34,197,94,0.22);
+  border-color: var(--correct);
+  color: var(--correct);
+}
+@keyframes correctPop {
+  0%   { transform: scale(0.96); }
+  60%  { transform: scale(1.04); }
+  100% { transform: scale(1); }
+}
+
+.answer-btn.wrong {
+  background: rgba(239,68,68,0.12);
+  border-color: var(--wrong);
+  color: var(--wrong);
+  box-shadow: 0 0 22px var(--wrong-glow);
+  animation: wrongShake 0.35s ease;
+}
+.answer-btn.wrong::before {
+  background: rgba(239,68,68,0.22);
+  border-color: var(--wrong);
+  color: var(--wrong);
+}
+@keyframes wrongShake {
+  0%, 100% { transform: translateX(0); }
+  20%       { transform: translateX(-5px); }
+  40%       { transform: translateX(5px); }
+  60%       { transform: translateX(-4px); }
+  80%       { transform: translateX(4px); }
+}
+
+/* ──────────────────────────────────────────────────────────────
+   FEEDBACK OVERLAY
+   ────────────────────────────────────────────────────────────── */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.76);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+.overlay.hidden { display: none; }
+
+.feedback-box {
+  background: var(--bg-card);
+  border: 1px solid rgba(240,230,208,0.14);
+  border-radius: 8px;
+  padding: 36px 42px;
+  text-align: center;
+  max-width: 340px;
+  width: 90%;
+  box-shadow: 0 20px 56px rgba(0,0,0,0.75), 0 0 0 1px rgba(255,255,255,0.04);
+  animation: popIn 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+@keyframes popIn {
+  from { transform: scale(0.72); opacity: 0; }
+  to   { transform: scale(1);    opacity: 1; }
+}
+
+/* ── Dancing Skeleton ───────────────────────────────────────── */
+.skeleton-wrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 14px;
+}
+.skeleton-wrap.hidden { display: none; }
+
+.skeleton {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 56px;
+  animation: bodyRock 0.45s ease-in-out infinite alternate;
+}
+@keyframes bodyRock {
+  0%   { transform: rotate(-9deg) translateY(0px); }
+  100% { transform: rotate(9deg)  translateY(-7px); }
+}
+
+.sk-head {
+  width: 22px;
+  height: 22px;
+  background: var(--bone);
+  border-radius: 50%;
+  border: 2px solid #8a8a8a;
+  position: relative;
+  animation: headTilt 0.45s ease-in-out infinite alternate;
+}
+@keyframes headTilt {
+  0%   { transform: rotate(-12deg); }
+  100% { transform: rotate(12deg); }
+}
+.sk-head::before,
+.sk-head::after {
+  content: '';
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  background: #222;
+  border-radius: 50%;
+  top: 5px;
+}
+.sk-head::before { left: 3px; }
+.sk-head::after  { right: 3px; }
+
+.sk-body {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  margin: 2px 0;
+}
+.sk-torso {
+  width: 14px;
+  height: 18px;
+  background: var(--bone);
+  border-radius: 2px;
+}
+.sk-arm {
+  width: 6px;
+  height: 17px;
+  background: var(--bone);
+  border-radius: 3px;
+  transform-origin: top center;
+}
+.sk-arm.left  { animation: armSwingL 0.45s ease-in-out infinite alternate; }
+.sk-arm.right { animation: armSwingR 0.45s ease-in-out infinite alternate; }
+@keyframes armSwingL {
+  0%   { transform: rotate(-70deg); }
+  100% { transform: rotate(50deg); }
+}
+@keyframes armSwingR {
+  0%   { transform: rotate(70deg); }
+  100% { transform: rotate(-50deg); }
+}
+
+.sk-hips {
+  width: 18px;
+  height: 5px;
+  background: var(--bone);
+  border-radius: 2px;
+}
+
+.sk-legs {
+  display: flex;
+  gap: 4px;
+  margin-top: 1px;
+}
+.sk-leg {
+  width: 6px;
+  height: 20px;
+  background: var(--bone);
+  border-radius: 3px;
+  transform-origin: top center;
+}
+.sk-leg.left  { animation: legKickL 0.45s ease-in-out infinite alternate; }
+.sk-leg.right { animation: legKickR 0.45s ease-in-out infinite alternate; }
+@keyframes legKickL {
+  0%   { transform: rotate(25deg); }
+  100% { transform: rotate(-25deg); }
+}
+@keyframes legKickR {
+  0%   { transform: rotate(-25deg); }
+  100% { transform: rotate(25deg); }
+}
+
+/* Feedback text */
+#feedback-icon {
+  font-size: 2.8rem;
+  line-height: 1;
+  margin-bottom: 10px;
+}
+#feedback-msg {
+  font-family: var(--font-metal);
+  font-size: 1.65rem;
+  margin-bottom: 8px;
+  letter-spacing: 1px;
+}
+#feedback-msg.correct-msg {
+  color: var(--correct);
+  text-shadow: 0 0 14px var(--correct-glow);
+}
+#feedback-msg.wrong-msg {
+  color: var(--wrong);
+  text-shadow: 0 0 14px var(--wrong-glow);
+}
+.feedback-detail {
+  font-size: 0.87rem;
+  color: var(--bone-dim);
+  line-height: 1.55;
+  margin-top: 4px;
+}
+
+/* ──────────────────────────────────────────────────────────────
+   END SCREEN
+   ────────────────────────────────────────────────────────────── */
+.end-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 22px;
+  padding: 64px 0;
+  width: 100%;
+  text-align: center;
+}
+.end-title {
+  font-family: var(--font-metal);
+  font-size: clamp(2rem, 7vw, 3.2rem);
+  color: var(--bone);
+  text-shadow: 0 0 24px var(--red), 2px 3px 0 #000;
+  letter-spacing: 4px;
+}
+.final-skull {
+  font-size: 4.5rem;
+  filter: drop-shadow(0 0 18px var(--red));
+  animation: pulseSpin 1.8s ease-in-out infinite;
+  user-select: none;
+}
+@keyframes pulseSpin {
+  0%   { transform: scale(1)    rotate(0deg);  filter: drop-shadow(0 0 12px var(--red)); }
+  50%  { transform: scale(1.12) rotate(10deg); filter: drop-shadow(0 0 28px var(--red)); }
+  100% { transform: scale(1)    rotate(0deg);  filter: drop-shadow(0 0 12px var(--red)); }
+}
+.final-score-label {
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--bone-dim);
+}
+.final-score-display {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+#final-score {
+  font-family: var(--font-metal);
+  font-size: clamp(3.2rem, 13vw, 5.5rem);
+  color: var(--red);
+  text-shadow: 0 0 28px var(--red-glow);
+  line-height: 1;
+}
+.final-of {
+  font-family: var(--font-metal);
+  font-size: 2.2rem;
+  color: var(--bone-dim);
+}
+.final-verdict {
+  font-family: var(--font-marker);
+  font-size: 1.1rem;
+  color: var(--bone);
+  max-width: 320px;
+  line-height: 1.55;
+}
+.end-actions { margin-top: 6px; }
+
+/* ──────────────────────────────────────────────────────────────
+   RESPONSIVE
+   ────────────────────────────────────────────────────────────── */
+@media (max-width: 520px) {
+  .answers-grid { grid-template-columns: 1fr; }
+  .feedback-box { padding: 28px 22px; }
+  .question-card { padding: 20px 16px; }
+  .band-tags span { font-size: 0.7rem; }
+  .game-header { gap: 12px; }
+}
+@media (max-width: 360px) {
+  .logo-wrap { gap: 10px; }
+  .logo-icon { font-size: 2rem; }
+  .btn-primary { padding: 12px 32px; font-size: 1.1rem; }
+}
+```
+
+---
+
+**Key design decisions:**
+
+- **Dark grunge theme** — `#0d0d0d` base with red radial glows bleeding in from corners
+- **Metal Mania** for logo/titles/score/end screen; **Permanent Marker** for tagline/verdict; **Oswald** for everything readable
+- **Answer buttons** use a `data-letter` pseudo-element circle (A/B/C/D) — your JS just needs to set `data-letter="A"` etc. on each button
+- **Correct/wrong states** — green glow + pop animation vs red shake; both override the letter badge color too
+- **Dancing skeleton** — fully CSS, no dependencies; each body part has its own alternating `@keyframes` on a 0.45s cycle, with the whole body rocking on `bodyRock`
+- **Timer bar** transitions `width` linearly so JS just needs to set `style.width = percentage + '%'`
+- **Responsive** — answers collapse to single column below 520px
