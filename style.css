@@ -1,6 +1,3 @@
-It looks like file write permissions aren't enabled for this directory. Here's the complete `style.css` — you can paste it directly into your file:
-
-```css
 /* ============================================================
    Rock-n-Roll Trivia — style.css
    ============================================================ */
@@ -652,16 +649,3 @@ body {
   .logo-icon { font-size: 2rem; }
   .btn-primary { padding: 12px 32px; font-size: 1.1rem; }
 }
-```
-
----
-
-**Key design decisions:**
-
-- **Dark grunge theme** — `#0d0d0d` base with red radial glows bleeding in from corners
-- **Metal Mania** for logo/titles/score/end screen; **Permanent Marker** for tagline/verdict; **Oswald** for everything readable
-- **Answer buttons** use a `data-letter` pseudo-element circle (A/B/C/D) — your JS just needs to set `data-letter="A"` etc. on each button
-- **Correct/wrong states** — green glow + pop animation vs red shake; both override the letter badge color too
-- **Dancing skeleton** — fully CSS, no dependencies; each body part has its own alternating `@keyframes` on a 0.45s cycle, with the whole body rocking on `bodyRock`
-- **Timer bar** transitions `width` linearly so JS just needs to set `style.width = percentage + '%'`
-- **Responsive** — answers collapse to single column below 520px
